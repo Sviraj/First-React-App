@@ -15,10 +15,22 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.get("/api/get",(req,res) => {
-    const sqlGet ="SELECT * FROM contact_db";
-    db.query(sqlGet, (error, result) =>{
-        res.send(result);
+// app.get("/api/get",(req,res) => {
+//     const sqlGet ="SELECT * FROM contact_db";
+//     db.query(sqlGet, (error, result) =>{
+//         res.send(result);
+//     });
+// });
+
+app.get("/api/get", (req, res) => {
+    const sqlGet = "SELECT * FROM contact_db";
+    
+    db.query(sqlGet, (error, result) => {
+        if (error) {
+            console.error("Error fetching data:", error);
+            return res.status(500).send({ message: "Internal Server Error", error });
+        }
+        res.status(200).send(result);
     });
 });
 
