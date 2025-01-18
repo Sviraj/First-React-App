@@ -5,9 +5,9 @@ const mysql=require("mysql");
 const cors= require("cors");
 
 const db=mysql.createPool({
-    host:"localhost",
-    user:"root",
-    password: "password",
+    host:process.env.DB_HOST,
+    user:process.env.DB_USER,
+    password:process.env.DB_PASSWORD,
     database: "crud_contact",
 });
 
